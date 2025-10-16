@@ -1,0 +1,76 @@
+/* Adicione isso ao seu style.css, ou ajuste se já tiver estilos base */
+
+/* Estilo para tarefas concluídas */
+.completed {
+    text-decoration: line-through;
+    color: #888; /* Cor cinza para indicar conclusão */
+}
+
+/* Estilo para o container de filtros */
+#filters {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+/* Estilo básico para os botões de filtro */
+.filter-btn {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #eee;
+    transition: background-color 0.3s;
+}
+
+.filter-btn:hover {
+    background-color: #ddd;
+}
+
+/* Estilo para o botão de filtro ativo */
+.filter-btn.active {
+    background-color: #007bff; /* Cor primária */
+    color: white;
+}
+
+/* Estilo para os botões de ação na tarefa */
+.actions button {
+    margin-left: 5px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.edit-btn {
+    background-color: #ffc107; /* Amarelo */
+}
+
+.delete-btn {
+    background-color: #dc3545; /* Vermelho */
+    color: white;
+}
+
+.actions .save-btn, .actions .cancel-btn {
+    background-color: #28a745; /* Verde para Salvar */
+    color: white;
+    display: none; /* Esconder por padrão, só aparece no modo de edição */
+}
+
+/* Estilo para o campo de input na edição */
+.editing .task-text {
+    display: none;
+}
+
+.editing .edit-input {
+    display: inline-block;
+    padding: 5px;
+    margin-right: 10px;
+    width: 60%;
+}
+
+.edit-input {
+    display: none; /* Esconder por padrão */
+}
