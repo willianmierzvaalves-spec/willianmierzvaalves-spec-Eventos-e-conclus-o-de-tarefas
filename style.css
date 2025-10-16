@@ -1,76 +1,148 @@
-/* Adicione isso ao seu style.css, ou ajuste se já tiver estilos base */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
 
-/* Estilo para tarefas concluídas */
+.container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+}
+
+h1 {
+    text-align: center;
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+/* Formulário e Input */
+#task-form {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+#task-input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px 0 0 4px;
+    font-size: 16px;
+}
+
+#add-task-btn {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#add-task-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Lista de Tarefas */
+#task-list {
+    list-style: none;
+    padding: 0;
+}
+
+#task-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    transition: background-color 0.2s;
+}
+
+#task-list li:last-child {
+    border-bottom: none;
+}
+
+/* 📌 No style.css, acrescente: Estilo para tarefa concluída */
 .completed {
     text-decoration: line-through;
-    color: #888; /* Cor cinza para indicar conclusão */
+    color: #888;
+    background-color: #f9f9f9;
 }
 
-/* Estilo para o container de filtros */
-#filters {
-    margin-top: 20px;
-    margin-bottom: 20px;
+/* Ações (botões) */
+.actions {
     display: flex;
-    gap: 10px;
-    justify-content: center;
+    gap: 8px;
 }
 
-/* Estilo básico para os botões de filtro */
-.filter-btn {
-    padding: 8px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    background-color: #eee;
-    transition: background-color 0.3s;
-}
-
-.filter-btn:hover {
-    background-color: #ddd;
-}
-
-/* Estilo para o botão de filtro ativo */
-.filter-btn.active {
-    background-color: #007bff; /* Cor primária */
-    color: white;
-}
-
-/* Estilo para os botões de ação na tarefa */
-.actions button {
-    margin-left: 5px;
+.action-btn {
     padding: 5px 10px;
     border: none;
-    border-radius: 3px;
+    border-radius: 4px;
     cursor: pointer;
+    font-size: 14px;
+    transition: opacity 0.2s;
+}
+
+.action-btn:hover {
+    opacity: 0.8;
 }
 
 .edit-btn {
-    background-color: #ffc107; /* Amarelo */
+    background-color: #ffc107; /* Amarelo para Editar */
+    color: #333;
 }
 
-.delete-btn {
-    background-color: #dc3545; /* Vermelho */
+.remove-btn {
+    background-color: #dc3545; /* Vermelho para Remover */
     color: white;
 }
 
-.actions .save-btn, .actions .cancel-btn {
-    background-color: #28a745; /* Verde para Salvar */
-    color: white;
-    display: none; /* Esconder por padrão, só aparece no modo de edição */
-}
-
-/* Estilo para o campo de input na edição */
-.editing .task-text {
+/* Estilo para a Tarefa no modo Edição */
+.edit-mode .task-text {
     display: none;
 }
 
-.editing .edit-input {
-    display: inline-block;
-    padding: 5px;
+.edit-mode input[type="text"] {
+    display: block;
+    flex-grow: 1;
     margin-right: 10px;
-    width: 60%;
+    padding: 5px;
+    border: 1px solid #007bff;
+    border-radius: 4px;
 }
 
-.edit-input {
-    display: none; /* Esconder por padrão */
+.edit-mode .edit-btn {
+    background-color: #28a745; /* Verde para Salvar */
+    content: "Salvar"; /* Isso não funciona em CSS, faremos no JS */
+}
+
+/* Filtros */
+#filter-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.filter-btn {
+    padding: 8px 15px;
+    border: 1px solid #007bff;
+    background-color: white;
+    color: #007bff;
+    cursor: pointer;
+    margin: 0 5px;
+    border-radius: 20px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.filter-btn.active {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
 }

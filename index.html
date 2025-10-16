@@ -1,8 +1,30 @@
-<div id="filters">
-    <button class="filter-btn active" data-filter="all">Todas</button>
-    <button class="filter-btn" data-filter="pending">Pendentes</button>
-    <button class="filter-btn" data-filter="completed">Concluídas</button>
-</div>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tarefas - Aula 3</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Minha Lista de Tarefas</h1>
 
-<ul id="task-list">
-    </ul>
+        <form id="task-form">
+            <input type="text" id="task-input" placeholder="Adicione uma nova tarefa..." required>
+            <button type="submit" id="add-task-btn">Adicionar</button>
+        </form>
+
+        <div id="filter-container">
+            <button id="filter-all" class="filter-btn active">Todas</button>
+            <button id="filter-pending" class="filter-btn">Pendentes</button>
+            <button id="filter-completed" class="filter-btn">Concluídas</button>
+        </div>
+
+        <ul id="task-list">
+            </ul>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
