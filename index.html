@@ -3,25 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Tarefas - Aula 3</title>
+    <title>Minha Lista de Tarefas</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Minha Lista de Tarefas</h1>
 
-        <form id="task-form">
-            <input type="text" id="task-input" placeholder="Adicione uma nova tarefa..." required>
-            <button type="submit" id="add-task-btn">Adicionar</button>
+    <div class="container">
+        <h1>Minhas Tarefas</h1>
+
+        <form id="taskForm">
+            <input 
+                type="text" 
+                id="taskInput" 
+                placeholder="Nova tarefa..." 
+                required
+            >
+            <button type="submit">Adicionar</button>
         </form>
 
-        <div id="filter-container">
-            <button id="filter-all" class="filter-btn active">Todas</button>
-            <button id="filter-pending" class="filter-btn">Pendentes</button>
-            <button id="filter-completed" class="filter-btn">Concluídas</button>
+        <div class="filter-container">
+            <button id="filter-all" class="active">Todas</button>
+            <button id="filter-pending">Pendentes</button>
+            <button id="filter-completed">Concluídas</button>
         </div>
 
-        <ul id="task-list">
+        <ul id="taskList">
             </ul>
     </div>
 

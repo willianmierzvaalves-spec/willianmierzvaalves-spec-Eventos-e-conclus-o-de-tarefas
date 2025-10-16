@@ -1,81 +1,121 @@
-// Variáveis do DOM (mantendo a referência do código da aula anterior)
-const taskForm = document.getElementById('task-form');
-const taskInput = document.getElementById('task-input');
-const taskList = document.getElementById('task-list');
+// Pega a lista principal para aplicar a delegação de eventos
+const taskList = document.getElementById('taskList');
 
-// Variáveis para os Filtros
-const filterContainer = document.getElementById('filter-container');
-let currentFilter = 'all'; // Estado inicial do filtro
+// --- DELEGAÇÃO DE EVENTOS NA LISTA ---
+taskList.addEventListener('click', function(event) {
+    const target = event.target;
+    
+    // Encontra o <li> mais próximo que contém a tarefa
+    const listItem = target.closest('.todo-list-item');
+    if (!listItem) return; // Se o clique não for dentro de um <li>, ignore
 
-// Função para criar o elemento da tarefa (li)
-const createTaskElement = (taskText) => {
-    const li = document.createElement('li');
-
-    // Elemento que guarda o texto da tarefa
-    const span = document.createElement('span');
-    span.classList.add('task-text');
-    span.textContent = taskText;
-
-    // Campo de input para edição (inicialmente escondido)
-    const editInput = document.createElement('input');
-    editInput.type = 'text';
-    editInput.value = taskText;
-    editInput.style.display = 'none'; // Esconde por padrão
-
-    // Contêiner de ações (botões)
-    const actions = document.createElement('div');
-    actions.classList.add('actions');
-
-    // Botão de Edição
-    const editBtn = document.createElement('button');
-    editBtn.classList.add('action-btn', 'edit-btn');
-    editBtn.textContent = 'Editar';
-    editBtn.dataset.action = 'edit'; // Usado na Delegação de Eventos
-
-    // Botão de Remoção
-    const removeBtn = document.createElement('button');
-    removeBtn.classList.add('action-btn', 'remove-btn');
-    removeBtn.textContent = 'Remover';
-    removeBtn.dataset.action = 'remove'; // Usado na Delegação de Eventos
-
-    // Montar o LI
-    actions.appendChild(editBtn);
-    actions.appendChild(removeBtn);
-
-    li.appendChild(span);
-    li.appendChild(editInput);
-    li.appendChild(actions);
-
-    return li;
-};
-
-// 1. Adicionar Tarefa
-const addTask = (event) => {
-    event.preventDefault(); // Previne o envio do formulário
-
-    const taskText = taskInput.value.trim();
-
-    if (taskText) {
-        const newTask = createTaskElement(taskText);
-        taskList.appendChild(newTask);
-
-        // Limpar o input
-        taskInput.value = '';
+    // 1. Botão de Concluir Tarefa
+    if (target.classList.contains('complete-btn')) {
+        listItem.classList.toggle('completed');
+        // Após a conclusão/desconclusão, aplica o filtro atual
+        applyCurrentFilter(); 
     }
-};
 
-taskForm.addEventListener('submit', addTask);
+    // 2. Botão de Remover Tarefa
+    else if (target.classList.contains('delete-btn')) {
+        listItem.remove();
+        // Não precisa de filtro aqui, a tarefa simplesmente desaparece.
+    }
+
+    // 3. Botão de Editar Tarefa
+    else if (target.classList.contains('edit-btn')) {
+        handleEdit(listItem);
+    }
+});
+
+// Função de Edição
+function handleEdit(listItem) {
+    const taskSpan = listItem.querySelector('span');
+    const currentText = taskSpan.textContent;
+
+    // Cria um campo de input com o texto atual
+    const inputField = document.createElement('input');
+    inputField.type = 'text';
+    inputField.value = currentText;
+    inputField.classList.add('edit-input');
+
+    // Troca o <span> pelo <input>
+    listItem.replaceChild(inputField, taskSpan);
+    inputField.focus();
+
+    // Lógica para salvar a edição (ao perder o foco ou apertar Enter)
+    const saveEdit = () => {
+        const newText = inputField.value.trim();
+        if (newText !== "") {
+            taskSpan.textContent = newText;
+        }
+        // Troca o <input> de volta pelo <span>
+        listItem.replaceChild(taskSpan, inputField);
+    };
+
+    inputField.addEventListener('blur', saveEdit); // Salva ao perder o foco
+    inputField.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            saveEdit();
+        }
+    });
+}
+// --- LÓGICA DE FILTROS ---
+const filterContainer = document.querySelector('.filter-container');
+const filterButtons = document.querySelectorAll('.filter-container button');
+let currentFilter = 'all'; // Estado inicial
+
+// Função para aplicar o filtro
+function applyFilter(filterType) {
+    currentFilter = filterType;
+    const items = taskList.querySelectorAll('.todo-list-item');
+
+    items.forEach(item => {
+        const isCompleted = item.classList.contains('completed');
+
+        if (filterType === 'all') {
+            item.style.display = 'flex';
+        } else if (filterType === 'pending' && !isCompleted) {
+            item.style.display = 'flex';
+        } else if (filterType === 'completed' && isCompleted) {
+            item.style.display = 'flex';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+}
+
+// Função para atualizar o estado do botão (qual está ativo)
+function updateFilterButtons(clickedButton) {
+    filterButtons.forEach(btn => btn.classList.remove('active'));
+    clickedButton.classList.add('active');
+}
+
+// Evento de clique no container de filtros (também é uma forma de delegação!)
+filterContainer.addEventListener('click', function(event) {
+    const target = event.target;
+    if (target.tagName !== 'BUTTON') return;
+
+    // Define o tipo de filtro baseado no ID do botão
+    let filterType;
+    if (target.id === 'filter-all') {
+        filterType = 'all';
+    } else if (target.id === 'filter-pending') {
+        filterType = 'pending';
+    } else if (target.id === 'filter-completed') {
+        filterType = 'completed';
+    }
+    
+    // Aplica a lógica
+    applyFilter(filterType);
+    updateFilterButtons(target);
+});
 
 
-// --- Delegação de Eventos para Ações na Lista ---
-/*
-    📌 No script.js, adicione após o código do taskForm:
-    Usamos a delegação de eventos no elemento PAI (#task-list) para
-    controlar cliques em itens FILHOS (li) criados dinamicamente,
-    como os botões de edição/remoção e a marcação de concluída.
-*/
-taskList.addEventListener('click', (e) => {
-    const clickedElement = e.target;
-    const taskItem = clickedElement.closest('li'); // Encontra o LI pai mais próximo
+// Função auxiliar para ser chamada quando a tarefa é criada ou concluída
+function applyCurrentFilter() {
+    applyFilter(currentFilter);
+}
 
-    if (!taskItem) return; // Sai se não clicou
+// OBS: Certifique-se de que sua função que ADICIONA TAREFAS
+// (taskForm handler) chame applyCurrentFilter() após adicionar um novo item.

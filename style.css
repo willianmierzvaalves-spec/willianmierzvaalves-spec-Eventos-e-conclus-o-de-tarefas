@@ -1,148 +1,37 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-    color: #333;
-    display: flex;
-    justify-content: center;
-    padding: 20px;
+/* Estiliza o item da lista quando estiver concluído */
+.todo-list-item.completed {
+    background-color: #f0f0f0;
+    opacity: 0.6;
 }
 
-.container {
-    background: #fff;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 500px;
-}
-
-h1 {
-    text-align: center;
-    color: #007bff;
-    margin-bottom: 20px;
-}
-
-/* Formulário e Input */
-#task-form {
-    display: flex;
-    margin-bottom: 20px;
-}
-
-#task-input {
-    flex-grow: 1;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px 0 0 4px;
-    font-size: 16px;
-}
-
-#add-task-btn {
-    padding: 10px 15px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 0 4px 4px 0;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-#add-task-btn:hover {
-    background-color: #0056b3;
-}
-
-/* Lista de Tarefas */
-#task-list {
-    list-style: none;
-    padding: 0;
-}
-
-#task-list li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid #eee;
-    transition: background-color 0.2s;
-}
-
-#task-list li:last-child {
-    border-bottom: none;
-}
-
-/* 📌 No style.css, acrescente: Estilo para tarefa concluída */
-.completed {
+/* Aplica o "riscado" quando a tarefa está concluída */
+.todo-list-item.completed span {
     text-decoration: line-through;
     color: #888;
-    background-color: #f9f9f9;
 }
 
-/* Ações (botões) */
-.actions {
-    display: flex;
-    gap: 8px;
-}
-
-.action-btn {
-    padding: 5px 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: opacity 0.2s;
-}
-
-.action-btn:hover {
-    opacity: 0.8;
-}
-
-.edit-btn {
-    background-color: #ffc107; /* Amarelo para Editar */
-    color: #333;
-}
-
-.remove-btn {
-    background-color: #dc3545; /* Vermelho para Remover */
-    color: white;
-}
-
-/* Estilo para a Tarefa no modo Edição */
-.edit-mode .task-text {
-    display: none;
-}
-
-.edit-mode input[type="text"] {
-    display: block;
-    flex-grow: 1;
-    margin-right: 10px;
-    padding: 5px;
-    border: 1px solid #007bff;
-    border-radius: 4px;
-}
-
-.edit-mode .edit-btn {
-    background-color: #28a745; /* Verde para Salvar */
-    content: "Salvar"; /* Isso não funciona em CSS, faremos no JS */
-}
-
-/* Filtros */
-#filter-container {
+/* Estilização para os botões de filtro */
+.filter-container {
+    margin: 20px 0;
     text-align: center;
-    margin-bottom: 20px;
 }
 
-.filter-btn {
+.filter-container button {
     padding: 8px 15px;
-    border: 1px solid #007bff;
-    background-color: white;
-    color: #007bff;
-    cursor: pointer;
     margin: 0 5px;
-    border-radius: 20px;
-    transition: background-color 0.2s, color 0.2s;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.2s;
 }
 
-.filter-btn.active {
+.filter-container button:hover {
+    background-color: #e9e9e9;
+}
+
+.filter-container button.active {
     background-color: #007bff;
     color: white;
-    font-weight: bold;
+    border-color: #007bff;
 }
